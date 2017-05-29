@@ -1,0 +1,83 @@
+# Welcome to Jekyll!
+#
+# This config file is meant for settings that affect your whole blog, values
+# which you are expected to set up once and rarely edit after that. If you find
+# yourself editing this file very often, consider using Jekyll's data files
+# feature for the data you need to update frequently.
+#
+# For technical reasons, this file is *NOT* reloaded automatically when you use
+# 'bundle exec jekyll serve'. If you change this file, please restart the server process.
+
+# Site settings
+# These are used to personalize your new site. If you look in the HTML files,
+# you will see them accessed via {{ site.title }}, {{ site.email }}, and so on.
+# You can create any custom variable you would like, and they will be accessible
+# in the templates via {{ site.myvariable }}.
+### Site info:
+title: johnny
+tagline: 种一棵树最好的时间是十年前
+author: johnny
+email: sikuquanshu123@hotmail.com
+description: "种一棵树最好的时间是十年前." # You can edit this line in _config.yml. It will appear in your document head meta and in your feed.xml site description
+keywords: "Jekyll,sikuquanshu123"
+baseurl: "" # the subpath of your site, e.g. /blog/
+url: "http://qiangge.me/" # the base hostname & protocol for your site
+locale: cn
+
+### Personal info and site tools info:
+zhihu_username: xiao-xiao-qiang-3
+github_username:  sikuquanshu123
+weibo_username: 2502029140
+favicon: https://raw.githubusercontent.com/sikuquanshu123/sikuquanshu123.github.io/master/images/favicon.ico
+aboutme: Hi, this is johnny. I’m 21 years old. I live in shandong (China). I am now a student. # these are shown on aboutme-sidebar.
+aboutme_photo: https://raw.githubusercontent.com/sikuquanshu123/sikuquanshu123.github.io/master/images/about_me_photo.jpg
+
+
+### Site setting:
+ShowContactInfo: "True" # Personal Info (twitter,github,email) can be seen on aboutme-sidebar, those info only shown where ShowContactInfo == True
+default_column: "two" # blog style: two columns, if default_column != "two", you will see a one column blog.
+default_locale: "cn" # blog sidebar language set, only include: English (en), Chinese (cn), Japanese (jp), Polish (pl), Korean (kr), Russian (ru), and Turkish (tr)
+locales:
+    en:
+      Aboutme: "About Me"
+      Archives: "Archives"
+      Blogroll: "Blogroll"
+      Categories: "Categories"
+      Copyright_Notice: "Copyright Notice"
+      Recent_Posts: "Recent Posts"
+      Tags: "Tags"
+      Previous: "Older"
+      Next: "Newer"
+      PostedInCategories: "Posted in"
+      Taggedwith: "and tagged"
+      PostDate: "on "
+      Google_search: "Site Search"
+      Home: "Home"
+      About: "About"
+      Subscribe: "Subscribe"
+    cn:
+      Aboutme: "关于我"
+      Archives: "存档"
+      Blogroll: "良师益友"        
+      Categories: "分类"    
+      Copyright_Notice: "版权声明"
+      Recent_Posts: "近期文章"
+      Tags: "标签" 
+      Previous: "上一页"
+      Next: "下一页"
+      PostedInCategories: "目录:"   
+      Taggedwith: "| 标签:"
+      PostDate: "| 发表时间: "
+      Google_search: "站内搜索"
+      Home: "首页"
+      About: "关于"
+      Subscribe: "订阅"
+    
+# Build settings
+excerpt_separator:  '<!-- more -->'
+markdown: kramdown
+gems: [jekyll-paginate]
+paginate: 5
+exclude:
+  - Gemfile
+  - Gemfile.lock
