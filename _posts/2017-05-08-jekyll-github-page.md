@@ -7,14 +7,6 @@ category: articles
 tags:
   - github page
   - jekyll
-comments:
-  - author:
-      type: github
-      displayName: sikuquanshu123
-      url: 'https://github.com/sikuquanshu123'
-      picture: 'https://avatars3.githubusercontent.com/u/9312901?v=3&s=73'
-    content: '&#x524D;&#x6392;&#x524D;&#x6392;'
-    date: 2017-05-31T16:03:12.516Z
 
 ---  
 
