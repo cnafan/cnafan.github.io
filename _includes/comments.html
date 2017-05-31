@@ -17,8 +17,8 @@
   })();
 </script>
 
-{%if page.comments %}
-  {% assign sorted_comments = (page.comments | sort: 'date') %}
+{%if site.data.comments[id_arr.last] %}
+  {% assign sorted_comments = (site.data.comments[id_arr.last] | sort: 'date') %}
 {% endif %}
 {% for c in sorted_comments %}
   <div class="media">
