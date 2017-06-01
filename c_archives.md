@@ -28,4 +28,7 @@ permalink: /archives/
 
 {% endif %}
 
-</ul>
+</ul>  
+  
+---  
+
