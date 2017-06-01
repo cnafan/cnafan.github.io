@@ -7,15 +7,6 @@ category: articles
 tags:
   - github page
   - jekyll
-comments:
-  - author:
-      type: full
-      displayName: sikuquanshu123
-      url: 'https://github.com/sikuquanshu123'
-      picture: 'https://avatars3.githubusercontent.com/u/9312901?v=3&s=73'
-    content: '&#x54C8;&#x54C8;&#x54C8;&#x54C8;'
-    date: 2017-06-01T02:12:27.360Z
-
 ---  
 
 之前于csdn上记录过在腾讯云上通过flask建站的流程，随着临近毕业，腾讯云的学生计划也到期了，于是就看上了github page这块风水宝地，接下来一步步记录下在github上搭建自己博客的流程。  
