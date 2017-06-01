@@ -81,3 +81,4 @@ paginate: 5
 exclude:
   - Gemfile
   - Gemfile.lock
+path: "/_data/comments" # Path which stored comments etc.
