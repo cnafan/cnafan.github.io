@@ -22,4 +22,6 @@ permalink: /tags/
 {% else %}
 <span>No posts</span>
 {% endif %}
-</ul>
+</ul>  
+
+---  
