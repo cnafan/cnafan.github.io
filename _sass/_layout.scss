@@ -19,7 +19,6 @@
     &:visited
     &:hover {
       color: $brand-top-color; //$grey-color-dark
-      border-bottom: 1px dotted;
       text-decoration: none;
     }
   }
@@ -37,8 +36,8 @@
 .site-nav {
   /*float: right;*/
   line-height: 56px;
-  border-top: 1px solid $grey-color-light;
-  border-bottom: 1px solid $grey-color-light;
+  border-top: 2px solid $grey-color-light;
+  border-bottom: 2px solid $grey-color-light;
   .menu-icon {
     display: none;
   }
@@ -162,7 +161,7 @@
 
 .post-link {
   display: block;
-  font-size: 38px;//42px;
+  font-size: 28px;//42px;
 }
 
 
