@@ -9,7 +9,7 @@ tags:
   - raspberry pi
 ---
 
-从小就幻想着能拥有一辆自己的车（最好是特斯拉-。-），虽然目前只向着梦想前进了一小步，也是激动万分。接下来就是见证这梦想之路的一小步。  
+从小就幻想着能拥有一辆自己的车（最好是特斯拉-。-），虽然目前只向着梦想前进了一小步，也是激动万分。  
 <!-- more -->
 
 ---------------------------------------  
@@ -43,26 +43,74 @@ tags:
 ```  
 import RPi.GPIO as GPIO
 
-def forward():
-	GPIO.output(2,True)
-	GPIO.output(3,True)
-	GPIO.output(4,False)
-def backward():
-	GPIO.output(2,True)
-	GPIO.output(3,False)
-	GPIO.output(4,True)
-def stop():
-	GPIO.output(2,True)
-	GPIO.output(3,True)
-	GPIO.output(4,True)
+left_en = 14 #BCM编号即上图中针脚旁的数字
+left_in1 = 15
+left_in2 = 18
+
+right_en = 25
+right_in1 = 8
+right_in2 = 7
+
+def t_up():
+    GPIO.output(right_en, True)
+    GPIO.output(right_in1, True)
+    GPIO.output(right_in2, False)
+    GPIO.output(left_en, True)
+    GPIO.output(left_in1, True)
+    GPIO.output(left_in2, False)
+
+def t_down():
+    GPIO.output(right_en, True)
+    GPIO.output(right_in1, False)
+    GPIO.output(right_in2, True)
+    GPIO.output(left_en, True)
+    GPIO.output(left_in1, False)
+    GPIO.output(left_in2, True)
+
+def t_left():
+    GPIO.output(right_en, True)
+    GPIO.output(right_in1, True)
+    GPIO.output(right_in2, False)
+    GPIO.output(left_en, True)
+    GPIO.output(left_in1, True)
+    GPIO.output(left_in2, True)
+
+def t_right():
+    GPIO.output(right_en, True)
+    GPIO.output(right_in1, True)
+    GPIO.output(right_in2, True)
+    GPIO.output(left_en, True)
+    GPIO.output(left_in1, True)
+    GPIO.output(left_in2, False)
 
 if __name__ == '__main__':
+	GPIO.setwarnings(False)
 	GPIO.setmode(GPIO.BCM) #BCM编号即上图中针脚旁的数字
-	GPIO.setup(2,GPIO.OUT)
-	GPIO.setup(3,GPIO.OUT)
-	GPIO.setup(4,GPIO.OUT)
-	forward()  
+	# right
+	GPIO.setup(right_en, GPIO.OUT)
+	GPIO.setup(right_in1, GPIO.OUT)
+	GPIO.setup(right_in2, GPIO.OUT)
+	# left
+	GPIO.setup(left_en, GPIO.OUT)
+	GPIO.setup(left_in1, GPIO.OUT)
+	GPIO.setup(left_in2, GPIO.OUT)
+	t_up()
 ```  
+
+--------------------------------------- 
+
+#### 红外避障模块试用  
+这款模块只有3个接口 VCC可以接3.3或者5v GND接地 OUT接GPIO，由于需要在左右两侧都考虑避障，所以得最少买两个模块。红外避障模块使用起来很简单，直接读取OUT接口的数据判断即可。
+```  
+red_left=16
+red_right=12
+GPIO.setup(red_left,GPIO.IN)
+GPIO.setup(red_right,GPIO.IN)
+if GPIO.input(red_left) && GPIO.input(red_right):
+	t_up()
+```
+![](/images/raspberry_car_red.png)
+
 --------------------------------------- 
 
 #### 超声波模块试用  
@@ -71,8 +119,6 @@ if __name__ == '__main__':
 ```  
 import RPi.GPIO as GPIO
 import time
-#trig 23
-#echo 24
 Trig_Pin=23
 Echo_Pin=24
 def init_hy():
@@ -99,6 +145,8 @@ if __name__ == '__main__':
 	except KeyboardInterrupt:
     	GPIO.cleanup()
 ```  
+![](/images/raspberry_car_hy.png)  
+
 ---------------------------------------  
 
 #### 摄像头使用  
