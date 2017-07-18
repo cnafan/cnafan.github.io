@@ -1,7 +1,7 @@
 ---
 published: true
 layout: post
-title: RecyclerView多个布局
+title: RecyclerView Multiple Layout
 author: johnny 
 category: articles
 tags:
