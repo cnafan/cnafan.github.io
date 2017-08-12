@@ -28,7 +28,9 @@ tags:
 - 树莓派摄像头一枚
 
 ---------------------------------------  
+<iframe height=498 width=510 src="http://player.youku.com/embed/XNjcyMDU4Njg0" frameborder=0 allowfullscreen></iframe>  
 
+<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=422428930&auto=1&height=66"></iframe>
 #### 线路连接
 
 由于一个l298n驱动只能控制两个电机，但是想做成四轮小车于是采用两侧的电机并联，即两侧的电机同步转动。树莓派和驱动的接线按照下图(这个图是3b的，其他型号pi的gpio针脚会略有不同)需要注意的一点是图上那个EN_A和EN_B那个是需要拔掉那个短接帽，因为硬件小白以前从来没接触过，结果半天没看懂怎么插  
