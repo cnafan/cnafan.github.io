@@ -109,7 +109,8 @@ GPIO.setup(red_right,GPIO.IN)
 if GPIO.input(red_left) && GPIO.input(red_right):
 	t_up()
 ```
-![](/images/raspberry_car_red.png)
+<!--![](/images/raspberry_car_red.png)-->
+<img src="/images/raspberry_car_red.png" width = "300" height = "200">  
 
 --------------------------------------- 
 
@@ -145,7 +146,8 @@ if __name__ == '__main__':
 	except KeyboardInterrupt:
     	GPIO.cleanup()
 ```  
-![](/images/raspberry_car_hy.png)  
+<!--![](/images/raspberry_car_hy.png)-->
+<img src="/images/raspberry_car_hy.png" width = "300" height = "200">  
 
 ---------------------------------------  
 
