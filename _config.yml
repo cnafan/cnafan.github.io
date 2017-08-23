@@ -19,13 +19,13 @@ tagline: 种一棵树最好的时间是十年前
 author: johnny
 email: sikuquanshu123@hotmail.com
 description: "种一棵树最好的时间是十年前." # You can edit this line in _config.yml. It will appear in your document head meta and in your feed.xml site description
-keywords: "Jekyll,sikuquanshu123"
+keywords: "Jekyll,github page"
 baseurl: "" # the subpath of your site, e.g. /blog/
 url: "http://qiangge.me/" # the base hostname & protocol for your site
 locale: cn
 
 ### Personal info and site tools info:
-zhihu_username: xiao-xiao-qiang-3
+zhihu_username: johnny0714
 github_username:  sikuquanshu123
 weibo_username: 2502029140
 favicon: https://raw.githubusercontent.com/sikuquanshu123/sikuquanshu123.github.io/master/images/favicon.ico
