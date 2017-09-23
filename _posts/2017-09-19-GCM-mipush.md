@@ -26,7 +26,9 @@ tags:
 树莓派的系统为基于debian的官方系统Raspbian，首先安装依赖
 ```  
 sudo apt install openssl libssl-dev g++ gcc make 
-cpan -i App::cpanminus
+cpan -i App::cpanminus //装这个的时候回问你一些配置问题，直接回车使用默认值即可 
+wget  http://xrl.us/cpanm  --no-check-certificate -O /sbin/cpanm
+chmod +x  /sbin/cpanm 
 ```
 接下来安装webqq框架
 ```  
