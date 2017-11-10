@@ -46,12 +46,11 @@ import RPi.GPIO as GPIO
 left_en = 14 #BCM编号即上图中针脚旁的数字
 left_in1 = 15
 left_in2 = 18
-
 right_en = 25
-right_in1 = 8
-right_in2 = 7
+right_in3 = 8
+right_in4 = 7
 
-def t_up():
+def up():
     GPIO.output(right_en, True)
     GPIO.output(right_in1, True)
     GPIO.output(right_in2, False)
@@ -59,7 +58,7 @@ def t_up():
     GPIO.output(left_in1, True)
     GPIO.output(left_in2, False)
 
-def t_down():
+def down():
     GPIO.output(right_en, True)
     GPIO.output(right_in1, False)
     GPIO.output(right_in2, True)
@@ -67,7 +66,7 @@ def t_down():
     GPIO.output(left_in1, False)
     GPIO.output(left_in2, True)
 
-def t_left():
+def left():
     GPIO.output(right_en, True)
     GPIO.output(right_in1, True)
     GPIO.output(right_in2, False)
@@ -75,7 +74,7 @@ def t_left():
     GPIO.output(left_in1, True)
     GPIO.output(left_in2, True)
 
-def t_right():
+def right():
     GPIO.output(right_en, True)
     GPIO.output(right_in1, True)
     GPIO.output(right_in2, True)
@@ -88,8 +87,8 @@ if __name__ == '__main__':
 	GPIO.setmode(GPIO.BCM) #BCM编号即上图中针脚旁的数字
 	# right
 	GPIO.setup(right_en, GPIO.OUT)
-	GPIO.setup(right_in1, GPIO.OUT)
-	GPIO.setup(right_in2, GPIO.OUT)
+	GPIO.setup(right_in3, GPIO.OUT)
+	GPIO.setup(right_in4, GPIO.OUT)
 	# left
 	GPIO.setup(left_en, GPIO.OUT)
 	GPIO.setup(left_in1, GPIO.OUT)
@@ -109,8 +108,7 @@ GPIO.setup(red_right,GPIO.IN)
 if GPIO.input(red_left) && GPIO.input(red_right):
 	t_up()
 ```
-<!--![](/images/raspberry_car_red.png)-->
-<img src="/images/raspberry_car_red.png" width = "300" height = "200">  
+![](/images/raspberry_car_red.png){:height="50%" width="50%"}
 
 --------------------------------------- 
 
@@ -146,8 +144,7 @@ if __name__ == '__main__':
 	except KeyboardInterrupt:
     	GPIO.cleanup()
 ```  
-<!--![](/images/raspberry_car_hy.png)-->
-<img src="/images/raspberry_car_hy.png" width = "300" height = "200">  
+![](/images/raspberry_car_hy.png){:height="50%" width="50%"}
 
 ---------------------------------------  
 
@@ -185,7 +182,41 @@ RPi.GPIO.cleanup()
 ```
 ---------------------------------------  
 
+#### 操控  
+
+操控采用的是树莓派作为一个socket服务器，然后通过android客户端向树莓派发送指令，树莓派接受到指令后执行任务。  android客户端中轨迹球的部分是在github上看到的一个仓库，其中视频流采用的是之前用的mjpg-stream。  
+```  
+import socketserver
+import gpio
+
+class ThreadedTCPRequestHandler(socketserver.BaseRequestHandler):
+    def handle(self):
+        while True:
+            data = (self.request.recv(1024).decode('utf-8'))
+            #print("raw:" + str(data))
+            if not data:
+                break
+            data=data.replace('\n','').replace(' ','')
+            response = gpio.ctrl_id(data)+"\n"
+            print("post:" + str(data))
+            print("response:" + str(response))
+            self.request.sendall(response.encode('utf-8'))
+
+
+if __name__ == "__main__":
+    # Port 0 means to select an arbitrary unused port
+    HOST, PORT = "0.0.0.0", 20000
+
+    server = socketserver.TCPServer((HOST, PORT), ThreadedTCPRequestHandler)
+    server.serve_forever()  
+
+```  
+代码里面有换行符的修改是因为android在测试的时候发现java的socket发送会自动以换行符结尾，同样读取也是以换行符为终点。此外发现每次java的发送过程中会首先发一个空的数据包，暂时还不清楚这个是为啥。  
+![](/images/raspberry_car_android.png){:height="50%" width="50%"}
+
+---------------------------------------  
+
 #### 大功告成  
 
 剩下的就是完善整个小车，包括整合超声波避障、转向灯、摄像头等模块以及可视化操控。最后附上完工照。  
-![](/images/raspberry_car_fin.jpg)
+![](/images/raspberry_car_fin.jpg){:height="50%" width="50%"}
