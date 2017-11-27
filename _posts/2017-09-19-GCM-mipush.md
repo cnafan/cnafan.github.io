@@ -26,13 +26,17 @@ tags:
 树莓派的系统为基于debian的官方系统Raspbian，首先安装依赖
 ```  
 sudo apt install openssl libssl-dev g++ gcc make 
-cpan -i App::cpanminus //装这个的时候回问你一些配置问题，直接回车使用默认值即可 
-wget  http://xrl.us/cpanm  --no-check-certificate -O /sbin/cpanm
-chmod +x  /sbin/cpanm 
+sudo cpan -i App::cpanminus //装这个的时候回问你一些配置问题，直接回车使用默认值即可 
+sudo wget  http://xrl.us/cpanm  --no-check-certificate -O /sbin/cpanm
+sudo chmod +x  /sbin/cpanm 
+```  
+如果出现了安装错误，一般情况下是 Mojolicious 未成功安装造成的，这时候你需要手动安装  
 ```
+sudo curl -L https://cpanmin.us | perl - -M https://cpan.metacpan.org -n Mojolicious  
+```  
 接下来安装webqq框架
 ```  
-cpanm --mirror http://mirrors.163.com/cpan/ Mojo::Webqq
+sudo cpanm --mirror http://mirrors.163.com/cpan/ Mojo::Webqq
 ```
 
 ---------------------------------------  
