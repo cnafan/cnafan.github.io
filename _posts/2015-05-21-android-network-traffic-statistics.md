@@ -1,16 +1,18 @@
 ---
 published: true
 layout: post
-title: android network traffic statistics
-author: johnny 
+title: Android network traffic statistics
+author: Johnny 
 category: articles
 tags:
-- android
+- Android Development
 - 正则表达式
 ---
-由于手机是android4.4，翻遍酷市场也没有一个满足需求的成品，于是小手一动、脑袋一热决定自己丰衣足食。
+由于手机是android4.4，翻遍酷市场也没有一个满足需求的成品，于是小手一动、脑袋一热决定自己丰衣足食。  
+代码已经上传到github:[链接](https://github.com/sikuquanshu123/FlowStatistics)  
+
 <!-- more --> 
-主要的需求有三点：
+主要的需求有两点：
 - 实现本月剩余流量的查询
 - 实现每日消耗流量的统计  
 ok，要实现第一点的思路是给10086发短信，然后利用正则表达式提取回执短信中所需要的信息。这里发短信是调用系统api--smsmanage，然后设一个广播接收器，在接受器中实现正则的读取，然后通过接口的调用，实现数据的更新。  
@@ -23,21 +25,15 @@ private DecimalFormat df = new DecimalFormat("#.##");
     };
 
     private String deal(Context context, String data, String reg) {
-
         SharedPreferences pref = getDefaultSharedPreferences(context);
         Double check = Double.valueOf(pref.getString("check", "0"));
-
         Double return_data = 0.0;
         Pattern reg_data = Pattern.compile(reg);
         Matcher matcher = reg_data.matcher(data);
         while (matcher.find()) {
             return_data += Double.valueOf(matcher.group());
         }
-
-        Log.d("qiang", "remain_liuliang_before =" + return_data);
         return_data -= check;
-
-        Log.d("qiang", "remain_liuliang_after=" + return_data);
         DecimalFormat df = new DecimalFormat("#.##");
 
         if (return_data > 1024.0 && return_data / 1024.0 > 0) {
@@ -50,16 +46,11 @@ private DecimalFormat df = new DecimalFormat("#.##");
             return df.format(return_data*1024.0) + "k";
         }
     }
-
     String[] calculate(Context context, String data) {
         String[] remain = new String[2];
-
         for (int t = 0; t < remain.length; t++) {
             remain[t] = deal(context, data, reg[t]);
         }
-        Log.d("qiang", "remain_liuliang =" + remain[0]);
-        Log.d("qiang", "all_liuliang =" + remain[1]);
-
         return remain;
     }
 ```
@@ -67,11 +58,11 @@ private DecimalFormat df = new DecimalFormat("#.##");
 此外，还需要实现数据的定时刷新，每隔3分钟和每隔24小时，每隔3分钟是读取数据库数据，更新每天使用的流量，然后发送新的通知。每隔24小时是发送短信查询流量信息，然后发送新的通知。过程是先设置一个alarmmanager，时间到了就唤醒更新数据的服务，更新完了之后再设置下一个alarm，最后自杀掉服务。所以该应用的后台是不会有任何服务长期滞留在内存中。
 ```
 //0点定时器
-    Intent intent1 = new Intent(this, AlarmReceiverManual.class); //触发广播，广播回调此方法，实现循环
+    Intent intent1 = new Intent(this, AlarmReceiverManual.class); 
     PendingIntent pendingIntent2 = PendingIntent.getBroadcast(this, 1, intent1, PendingIntent.FLAG_UPDATE_CURRENT);
-    long firstTime = SystemClock.elapsedRealtime();    // 开机之后到现在的运行时间(包括睡眠时间)
+    long firstTime = SystemClock.elapsedRealtime();    
+    // 开机之后到现在的运行时间(包括睡眠时间)
     long systemTime = System.currentTimeMillis();
-
     Calendar calendar = Calendar.getInstance();
     calendar.setTimeInMillis(System.currentTimeMillis());
     // 这里时区需要设置一下，不然会有8个小时的时间差
@@ -90,15 +81,10 @@ private DecimalFormat df = new DecimalFormat("#.##");
     // 计算现在时间到设定时间的时间差
     long time = selectTime - systemTime;
     firstTime += time;
-    Log.d("qiang", "时间差：" + time);
     // 进行闹铃注册
     AlarmManager manager = (AlarmManager) getSystemService(ALARM_SERVICE);
     manager.setRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP,
             firstTime, time, pendingIntent2);
-    Log.d("qiang", "0点广播已发");
-
     stopSelf();
-    Log.d("qiang", "AlarmManualStart已关闭");
 ```
-代码已经上传到github:[链接](https://github.com/sikuquanshu123/FlowStatistics)
-apk下载地址：[下载链接](https://github.com/sikuquanshu123/download_files/raw/master/10086.apk)
+
