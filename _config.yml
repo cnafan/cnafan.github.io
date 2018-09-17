@@ -17,11 +17,11 @@
 title: Johnny
 tagline: 种一棵树最好的时间是十年前
 author: Johnny
-email: sikuquanshu123@hotmail.com
+email: qiangtech@hotmail.com
 description: "种一棵树最好的时间是十年前." # You can edit this line in _config.yml. It will appear in your document head meta and in your feed.xml site description
 keywords: "Jekyll,github page,Android,Python"
 baseurl: "" # the subpath of your site, e.g. /blog/
-url: "http://qiangge.me/" # the base hostname & protocol for your site
+url: "http://johnnyz.me/" # the base hostname & protocol for your site
 locale: cn
 
 ### Personal info and site tools info:
