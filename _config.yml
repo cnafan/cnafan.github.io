@@ -27,7 +27,6 @@ locale: cn
 ### Personal info and site tools info:
 zhihu_username: johnny0714
 github_username:  sikuquanshu123
-weibo_username: 2502029140
 favicon: https://raw.githubusercontent.com/sikuquanshu123/sikuquanshu123.github.io/master/images/favicon.ico
 aboutme: Hi, this is Johnny. I am now a student living in Xi'an (China). # these are shown on aboutme-sidebar.
 aboutme_photo: https://raw.githubusercontent.com/sikuquanshu123/sikuquanshu123.github.io/master/images/about_me_photo.jpg

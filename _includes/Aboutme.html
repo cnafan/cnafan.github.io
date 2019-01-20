@@ -4,7 +4,6 @@
     <span>{{site.aboutme}}</span>
     <br /> {% if site.ShowContactInfo == "True" %} You can contact me via: {% if site.email != empty %}
     <a href="mailto:{{site.email}}" title="mailto: {{site.email}}">Email</a> / {% endif %} {% if site.github_username != empty %}
-    <a href="https://github.com/{{site.github_username}}" title="GithubID: {{site.github_username}}">Github</a> / {% endif %} {% if site.weibo_username != empty %}
-    <a href="http://weibo.com/u/{{site.weibo_username}}" title="weiboID: {{site.weibo_username}}">weibo</a> / {% endif %} {% if site.zhihu_username != empty %}
+    <a href="https://github.com/{{site.github_username}}" title="GithubID: {{site.github_username}}">Github</a> / {% endif %}  {% if site.zhihu_username != empty %}
     <a href="https://www.zhihu.com/people/{{site.zhihu_username}}/answers/" title="zhihuID: {{site.zhihu_username}}">zhihu</a> /{% endif %} {% endif %}
 </div>
