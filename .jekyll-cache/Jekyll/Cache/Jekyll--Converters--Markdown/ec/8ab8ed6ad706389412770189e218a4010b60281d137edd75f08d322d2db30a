@@ -1,0 +1,112 @@
+I"�<p>因为以前的手机只有2GRAM，所以一直以来对于腾讯毒瘤可谓深恶痛绝，恰好github看到有人写了基于smartqq的框架-<a href="https://github.com/sjdy521/Mojo-Webqq">Mojo-Webqq</a>,正好酷安上发布了android客户端<a href="https://www.coolapk.com/apk/com.swjtu.gcmformojo">GcmForMojo</a>，于是只需要在树莓派上部署服务端即可，实现的效果即无需登录qq的app，消息采用mipush推送。采用系统推送的好处显而易见，不但不占用ram同时也能更省电。 
+<!-- more --></p>
+
+<hr />
+
+<h4 id="准备工作">准备工作</h4>
+
+<ul>
+  <li>树莓派3b一只<br />
+当然由于是在树莓派上部署，因为我的树莓派没有公网ip，所以不能实现快捷回复，只能实现接收消息，点击通知跳转到APP回复。</li>
+</ul>
+
+<hr />
+
+<h4 id="架设环境">架设环境</h4>
+
+<p>树莓派的系统为基于debian的官方系统Raspbian，首先安装依赖</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo apt install openssl libssl-dev g++ gcc make 
+sudo cpan -i App::cpanminus //装这个的时候回问你一些配置问题，直接回车使用默认值即可 
+sudo wget  http://xrl.us/cpanm  --no-check-certificate -O /sbin/cpanm
+sudo chmod +x  /sbin/cpanm 
+</code></pre></div></div>
+<p>如果出现了安装错误，一般情况下是 Mojolicious 未成功安装造成的，这时候你需要手动安装</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo curl -L https://cpanmin.us | perl - -M https://cpan.metacpan.org -n Mojolicious  
+</code></pre></div></div>
+<p>接下来安装webqq框架</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo cpanm --mirror http://mirrors.163.com/cpan/ Mojo::Webqq
+</code></pre></div></div>
+
+<hr />
+
+<h4 id="启用服务">启用服务</h4>
+<p>首先我们打开GCMForMojo app获取到设备码
+接着我们创建一个perl脚本</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>nano GCM_qq.pl
+</code></pre></div></div>
+<p>然后把下面的粘贴进去，以及修改registration_ids为获取到的设备码</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>use Mojo::Webqq;
+my $client = Mojo::Webqq-&gt;new(log_encoding=&gt;"utf-8");
+$client-&gt;load("ShowMsg");
+#MiPush 推送
+$client-&gt;load("MiPush",data=&gt;{
+    registration_ids=&gt;["输入你自己从 GCMForMojo APP中获取到的令牌"],
+    allow_group=&gt;["接受群消息的号码，如需要推送全部群消息可删除这一行，每个群号码之间使用 "", 分隔"],
+    ban_group=&gt;[],
+    allow_discuss=&gt;[],
+    ban_discuss=&gt;[],
+});
+$client-&gt;load("Openqq",data=&gt;{
+    listen =&gt; [{host=&gt;"0.0.0.0",port=&gt;5000}, ] ,
+});
+$client-&gt;run(); 
+</code></pre></div></div>
+<p>然后Ctrl+O Ctrl+X保存退出
+由于我们要保证ssh连接树莓派断开后perl脚本依然在执行,因此需要开一个screen</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>screen -S qq
+</code></pre></div></div>
+<p>然后执行perl脚本</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>perl GCM_qq.pl
+</code></pre></div></div>
+<p>这时候你的 GCMForMojo APP应该会弹出一条检测到二维码事件的通知，点击它，使用手机端 QQ 扫描这个二维码，你的 GCMForMojo 就跑起来了</p>
+
+<hr />
+
+<h4 id="额外">额外</h4>
+
+<p>为了安全起见,我们需要在服务端与客户端同时配置盐值
+首先在GCMForMojo app中设置盐值,然后修改GCM_qq.pl为如下</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>use Mojo::Webqq;
+use Digest::MD5  qw(md5 md5_hex md5_base64);
+
+my $client = Mojo::Webqq-&gt;new(log_encoding=&gt;"utf-8");
+$client-&gt;load("ShowMsg");
+$client-&gt;load("MiPush",data=&gt;{
+    registration_ids=&gt;["输入你自己从 GCMForMojo APP中获取到的令牌"],
+    allow_group=&gt;["接受群消息的号码，如需要推送全部群消息可删除这一行，每个群号码之间使用 "", 分隔"],
+    ban_group=&gt;[],
+    allow_discuss=&gt;[],
+    ban_discuss=&gt;[],
+});
+
+$client-&gt;load("Openqq",data=&gt;{
+    listen =&gt; [{host=&gt;"0.0.0.0",port=&gt;5000}, ] ,
+    auth =&gt; sub {
+        my($param,$controller) = @_;
+        my $secret = 'salt';
+        #请将该行salt改为你自定义的盐值，并在 Android 端内设定好你所自定义的盐值
+        my $text='';
+        foreach $key (sort keys %$param){
+            if($key ne 'sign'){
+                $value =$param-&gt;{$key};
+                $text.=$value;
+            }
+        }
+        if($param-&gt;{sign} eq md5_hex($text.$secret) ){
+            return 1;
+        }
+        else{
+            return 0;
+        }
+    }
+});
+$client-&gt;run();
+</code></pre></div></div>
+
+<hr />
+
+<h4 id="此外">此外</h4>
+
+<p>同样该框架也支持微信,然而由于微信本身的机制导致开启此服务后会与电脑版或者pad版的微信冲突,所以最终放弃.</p>
+
+:ET

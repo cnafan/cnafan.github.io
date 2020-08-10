@@ -1,0 +1,42 @@
+I"�<p>最近尝试了下socket编程，主要练习socket的原理,目前实现了多个客户端可以和服务器之间的通信，服务器端是用python写，客户端是用android做的。在服务器端使用多线程来保持与每个客户端的通信
+<!-- more --> <br />
+先看一下服务器端的代码：</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>def connect(client, address):
+  try:
+  #设置超时时间
+    client.settimeout(500)
+  #接收数据的大小
+    
+    buf = client.recv(2048)
+    print(buf)
+    buf=buf.decode('utf-8')
+    print(buf)
+    senddata=str(GetNowTime()+'：'+address[0] +' , '+ buf+' 已收到').encode('utf-8')
+   
+  #将接收到的信息原样的返回到客户端中
+    client.send(senddata)
+  #超时后显示退出
+  except socket.timeout:
+    print ('time out')
+  #关闭与客户端的连接
+  client.close()
+  
+def main():
+  #创建socket对象。调用socket构造函数
+  #AF_INET为ip地址族，SOCK_STREAM为流套接字
+  sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)  
+  #将socket绑定到指定地址，第一个参数为ip地址，第二个参数为端口号
+  sock.bind((myHost, myPort))  
+  #设置最多连接数量
+  sock.listen(5) 
+  while True:  
+  #服务器套接字通过socket的accept方法等待客户请求一个连接
+    print ('I am listenning')
+    client,address = sock.accept()
+    print ("Connected By:"+str(address))
+    thread = threading.Thread(target=connect, args=(client, address))
+    thread.start()
+</code></pre></div></div>
+<p>客户端的下载地址：<a href="">下载链接</a><br />
+代码已上传到github：<a href="https://github.com/sikuquanshu123/Socket_one">github</a></p>
+:ET

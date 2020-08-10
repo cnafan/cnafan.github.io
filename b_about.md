@@ -10,15 +10,14 @@ permalink: /about/
 ### 我的信息
 
 - 性别：男
-- 出生：9507
-- 邮箱：sikuquanshu123@hotmail.com
-- 常活跃于：sdut
+- 邮箱：cnafanz@outlook.com
+- 常活跃于：xdu、sdut
 
 ---
 
 #### 微信号
 
-微信搜索“xiaoxiaoqiang714”或者微信扫一扫：
+微信搜索“cnafanz”或者微信扫一扫：
 ![](/images/weixin.png)
 
 ---

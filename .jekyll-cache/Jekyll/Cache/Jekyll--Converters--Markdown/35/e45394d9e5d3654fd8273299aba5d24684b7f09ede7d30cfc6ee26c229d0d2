@@ -1,0 +1,58 @@
+I"	<p>之前于csdn上记录过在腾讯云上通过flask建站的流程，随着临近毕业，腾讯云的学生计划也到期了，于是就看上了github page这块风水地，接下来一步步记录下在github上搭建自己博客的流程。<br />
+<!-- more --></p>
+
+<hr />
+
+<h4 id="准备工作">准备工作</h4>
+<ul>
+  <li>拥有一个github账户</li>
+  <li>在本地安装git</li>
+  <li>在本地安装jekyll</li>
+  <li>在万网买个域名（可选）</li>
+</ul>
+
+<hr />
+
+<h4 id="第一步">第一步</h4>
+<ul>
+  <li>首先我们打开命令行，找到一个建立项目的地方并cd到该处<br />
+<code class="language-plaintext highlighter-rouge">cd desktop</code></li>
+  <li>接下来创建一个本地的jekyll项目<br />
+<code class="language-plaintext highlighter-rouge">jekyll new blog</code><br />
+本地会生成一个叫blog的文件夹1，打开可以看到一下文件<br />
+<img src="/images/github_page_1.png" alt="" /></li>
+</ul>
+
+<hr />
+
+<h4 id="第二步">第二步</h4>
+<ul>
+  <li>打开github，新建一个仓库，起名为 “你的名字.github.io”
+<img src="/images/github_page_2.png" alt="" /></li>
+  <li>创建完之后，打开这个仓库，然后复制git地址
+<img src="/images/github_page_3.png" alt="" /></li>
+  <li>接下来在我们第一步建立项目的地方，打开bash
+<code class="language-plaintext highlighter-rouge">git clone "刚才复制的git地址"</code></li>
+  <li>在本地打开 “你的名字.github.io”的文件夹2，然后将第一步blog中的东西复制到里面。</li>
+  <li>然后进入到文件夹2中，打开bash同步到github
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git init
+git add .
+git commit -m "first commit"
+git push origin master
+</code></pre></div>    </div>
+  </li>
+  <li>同步成功以后可以直接访问 “https://你的名字.github.io/”</li>
+</ul>
+
+<hr />
+
+<h4 id="绑定域名可选">绑定域名（可选）</h4>
+<ul>
+  <li>进入仓库的设置页面，在”Custom domain”这一项填入在万网买的域名
+<img src="/images/github_page_4.png" alt="" /></li>
+  <li>进入万网的域名管理页面，添加CNAME域名解析
+<img src="/images/github_page_5.png" alt="" />
+等待10分钟后，即可使用域名访问github个人网站。</li>
+</ul>
+
+:ET
