@@ -14,12 +14,12 @@
 # You can create any custom variable you would like, and they will be accessible
 # in the templates via {{ site.myvariable }}.
 ### Site info:
-title: cnafanz
+title: cnafan
 tagline: 种一棵树最好的时间是十年前
-author: cnafanz
-email: cnafanz@outlook.com
+author: cnafan
+email: cnafan@outlook.com
 description: "种一棵树最好的时间是十年前." # You can edit this line in _config.yml. It will appear in your document head meta and in your feed.xml site description
-keywords: "Jekyll,github page,Android,Python"
+keywords: "Jekyll,github page,Java,Android,Python"
 baseurl: "" # the subpath of your site, e.g. /blog/
 url: "/" # the base hostname & protocol for your site
 locale: cn
@@ -28,7 +28,7 @@ locale: cn
 zhihu_username: johnny0714
 github_username:  sikuquanshu123
 favicon: https://raw.githubusercontent.com/sikuquanshu123/sikuquanshu123.github.io/master/images/favicon.ico
-aboutme: Hi, this is cnafanz. I am now a student living in Xi'an (China). # these are shown on aboutme-sidebar.
+aboutme: Hi, this is cnafan. I am now a student living in Xi'an (China). # these are shown on aboutme-sidebar.
 aboutme_photo: https://raw.githubusercontent.com/sikuquanshu123/sikuquanshu123.github.io/master/images/about_me_photo.jpg
 
 
