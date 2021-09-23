@@ -21,15 +21,16 @@ email: cnafan@outlook.com
 description: "种一棵树最好的时间是十年前." # You can edit this line in _config.yml. It will appear in your document head meta and in your feed.xml site description
 keywords: "Jekyll,github page,Java,Android,Python"
 baseurl: "" # the subpath of your site, e.g. /blog/
-url: "/" # the base hostname & protocol for your site
+url: "https://cnafan.github.io" # the base hostname & protocol for your site
+# http://localhost:4000，https://cnafan.github.io
 locale: cn
 
 ### Personal info and site tools info:
 zhihu_username: johnny0714
-github_username:  sikuquanshu123
-favicon: https://raw.githubusercontent.com/sikuquanshu123/sikuquanshu123.github.io/master/images/favicon.ico
+github_username:  cnafan
+favicon: https://raw.githubusercontent.com/cnafan/cnafan.github.io/master/images/favicon.ico
 aboutme: Hi, this is cnafan. I am now a student living in Xi'an (China). # these are shown on aboutme-sidebar.
-aboutme_photo: https://raw.githubusercontent.com/sikuquanshu123/sikuquanshu123.github.io/master/images/about_me_photo.jpg
+aboutme_photo: https://raw.githubusercontent.com/cnafan/cnafan.github.io/master/images/about_me_photo.jpg
 
 
 ### Site setting:
