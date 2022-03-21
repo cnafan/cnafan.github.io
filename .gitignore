@@ -4,3 +4,5 @@ _site
 /.jekyll-cache/
 /.sass-cache/
 
+*.bak
+_posts/*_init.md

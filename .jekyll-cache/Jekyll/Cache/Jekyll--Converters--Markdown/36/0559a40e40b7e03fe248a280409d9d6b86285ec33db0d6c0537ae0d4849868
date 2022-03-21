@@ -1,2 +1,0 @@
-I"<p>因为以前的手机只有2GRAM，所以一直以来对于腾讯毒瘤可谓深恶痛绝，恰好github看到有人写了基于smartqq的框架-<a href="https://github.com/sjdy521/Mojo-Webqq">Mojo-Webqq</a>,正好酷安上发布了android客户端<a href="https://www.coolapk.com/apk/com.swjtu.gcmformojo">GcmForMojo</a>，于是只需要在树莓派上部署服务端即可，实现的效果即无需登录qq的app，消息采用mipush推送。采用系统推送的好处显而易见，不但不占用ram同时也能更省电。</p>
-:ET
