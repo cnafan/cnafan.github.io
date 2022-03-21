@@ -11,15 +11,17 @@ tags:
 <!-- more -->
 ## pi的基本介绍
 一个树莓派启动所必须的配件包括：一个8G的TF卡用于装系统、一个5V2.5A的电源、再加一个亚克力外壳，最好再配个散热片，亲测加上散热片日常开机运行不会超过55°。  
-![](/images/raspberry_2.jpg)
+![](/images/post/2017-01-24-raspberry/raspberry_2.jpg)
 树莓派3B采用了BCM2837 1.2GHz四核A53 64位处理器，1GB RAM和VideoCore IV GPU，内置Wi-Fi和蓝牙。  
-![](/images/raspberry_3.jpg)
+![](/images/post/2017-01-24-raspberry/raspberry_3.jpg)
+
 ## 初试树莓派
 树莓派拥有强大的社区资源，因此可供选择的系统不少，包括官方raspbian、arch、ridora、以及win10 IOT、甚至包括android4.4原生。我选的是官方推荐的[raspbian镜像](https://www.raspberrypi.org/downloads/)，如果选raspbian，官方提供了两个版本 WITH PIXEL和LITE，前者是带图形界面的。
-![](/images/raspberry_4.jpg)
+![](/images/post/2017-01-24-raspberry/raspberry_4.jpg)
 将镜像下载下来之后，使用官方推荐的[Win32DiskImager](https://sourceforge.net/projects/win32diskimager/)刻到sd卡。然后插上电源等待开机。接下来，找到一根网线，连接到路由器，从路由器的管理界面获取到pi的ip。  
-接着打开[PuTTY](http://www.chiark.greenend.org.uk/~sgtatham/putty/latest.html) ，输入ip，端口填22，选ssh，确认进入。（对了，新版jessie是默认关闭ssh的，所以如果连接不上pi，那么拔掉电源，给pi的sd卡上新建一个名为SSH没有后缀的文件）。  
+接着打开[PuTTY](http://www.chiark.greenend.org.uk/~sgtatham/putty/latest.html) ，输入ip，端口填22，选ssh，确认进入。（对了，新版jessie是默认关闭ssh的，所以如果连接不上pi，那么拔掉电源，给pi的sd卡上新建一个名为SSH没有后缀的文件)。  
 ok,连接上以后树莓派的默认用户名是pi，密码是raspberry。登录上以后，首先我们得先更改软件源，官方的源慢的跟蜗牛一样。
+
 ```
 sudo nano /etc/apt/sources.list
 
@@ -51,7 +53,7 @@ sudo apt-get install xrdp
 sudo apt-get install vnc4server tightvncserver
 ```
 装好以后，打开windows自带的远程桌面连接，输入pi的ip，输入用户名和密码，点击确认。接下来就可以看到pi的庐山真面目了。
-![](/images/raspberry_5.jpg)
+![](/images/post/2017-01-24-raspberry/raspberry_5.jpg)
 ## 上手树莓派
 趁热打铁，在pi上部署一个小应用---起床闹钟。需求：一个小音响  
 思路是用python的requests库爬取墨迹天气当天的天气状况，然后利用百度大脑的语音合成生成音频，然后在树莓派上采用定时任务，播放音频。同时也可以顺手来几首music  

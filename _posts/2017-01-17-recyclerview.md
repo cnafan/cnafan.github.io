@@ -11,6 +11,7 @@ tags:
 多布局是指一个不同的item用不同的layout显示。  
 <!-- more -->
 在xml中声明一个RecyclerView：
+
 ```
 <android.support.v7.widget.RecyclerView
 	android:layout_below="@id/toolbar"
@@ -209,4 +210,4 @@ public class CountryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         }
 ```
 效果图如下：
-![](/images/recyclerview_1.jpg)
+![](/images/post/2017-01-17-recyclerview/recyclerview_1.jpg)

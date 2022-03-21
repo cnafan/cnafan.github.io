@@ -27,9 +27,9 @@ locale: cn
 ### Personal info and site tools info:
 zhihu_username: johnny0714
 github_username:  cnafan
-favicon: https://raw.githubusercontent.com/cnafan/cnafan.github.io/master/images/favicon.ico
+favicon: https://raw.githubusercontent.com/cnafan/cnafan.github.io/master/images/system/favicon.ico
 aboutme: Hi, this is cnafan. I am now a student living in Xi'an (China). # these are shown on aboutme-sidebar.
-aboutme_photo: https://raw.githubusercontent.com/cnafan/cnafan.github.io/master/images/about_me_photo.jpg
+aboutme_photo: https://raw.githubusercontent.com/cnafan/cnafan.github.io/master/images/system/about_me_photo.jpg
 
 
 ### Site setting:

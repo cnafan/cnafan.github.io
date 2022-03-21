@@ -12,7 +12,7 @@ tags:
 
 
 
-<!-- 从小就幻想着能拥有一辆自己的车（最好是特斯拉-。-），虽然目前只向着梦想前进了一小步，也是激动万分。  --> Android 代码已上传至github:[链接](https://github.com/sikuquanshu123/rocker)  
+<!-- 从小就幻想着能拥有一辆自己的车（最好是特斯拉-。-），虽然目前只向着梦想前进了一小步，也是激动万分。  --> Android 代码已上传至Github:[链接](https://github.com/sikuquanshu123/rocker)  
 <!-- more -->  
 
 ------
@@ -65,14 +65,15 @@ def __new__(cls, *args, **kwargs):
 ### 线路连接
 
 由于一个l298n驱动只能控制两个电机，但是想做成四轮小车于是采用两侧的电机并联，即两侧的电机同步转动。树莓派和驱动的接线按照下图(这个图是3b的，其他型号pi的gpio针脚会略有不同)需要注意的一点是图上那个EN_A和EN_B那个是需要拔掉那个短接帽. 
-![](/images/raspberry_car_gpio.png)
+![](/images/post/2017-06-19-raspberry-pi-car/raspberry_car_gpio.png)
 
 ---------------------------------------
 
 ### 程序测试  
 
-![](/images/raspberry_car_l298n.png){:height="50%" width="50%"}  
+![](/images/post/2017-06-19-raspberry-pi-car/raspberry_car_l298n.png){:height="50%" width="50%"}{:height="50%" width="50%"}  
 从真值表可以看出给IN1 IN2和EN通不同的电平即可产生不同的效果。
+
 ```  
 #采用BCM编码
 self.left_en = 14
@@ -109,7 +110,7 @@ GPIO.setup(red_right,GPIO.IN)
 if GPIO.input(red_left) && GPIO.input(red_right):
 	t_up()
 ```
-![](/images/raspberry_car_red.png){:height="30%" width="30%"}
+![](/images/post/2017-06-19-raspberry-pi-car/raspberry_car_red.png){:height="30%" width="30%"}
 
 ---------------------------------------
 
@@ -145,7 +146,7 @@ if __name__ == '__main__':
 	except KeyboardInterrupt:
     	GPIO.cleanup()
 ```
-![](/images/raspberry_car_hy.png){:height="30%" width="30%"}
+![](/images/post/2017-06-19-raspberry-pi-car/raspberry_car_hy.png){:height="30%" width="30%"}
 
 ---------------------------------------
 
@@ -228,14 +229,14 @@ try {
     e.printStackTrace();
 }  
 ```
-![](/images/raspberry_car_android.png){:height="50%" width="50%"}
+![](/images/post/2017-06-19-raspberry-pi-car/raspberry_car_android.png){:height="30%" width="30%"}
 
 ---------------------------------------
 
 ### 大功告成  
 
 剩下的就是完善整个小车，包括整合超声波避障、转向灯、摄像头等模块以及可视化操控。最后附上完工照。  
-![](/images/raspberry_car_fin.jpg){:height="50%" width="50%"}
+![](/images/post/2017-06-19-raspberry-pi-car/raspberry_car_fin.jpg){:height="30%" width="30%"}
 
 ------
 
