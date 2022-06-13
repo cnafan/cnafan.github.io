@@ -27,11 +27,11 @@ tags:
 
 ### 安装docker图形化界面
 ```shell
-sudo docker pull portainer/ portainer
+sudo docker pull cr.portainer.io/portainer/portainer-ce
 
 sudo docker volume create portainer_data
 
-sudo docker run -d -p 9000 : 9000 --name portainer --restart always -v /var/run/docker.sock:/var/run/docker.sock -v portainer_data:/data portainer/portainer
+sudo docker run -d -p 9000 : 9000 --name portainer --restart always -v /var/run/docker.sock:/var/run/docker.sock -v portainer_data:/data cr.portainer.io/portainer/portainer-ce
 ```
 
 ### 通过Docker Compose生成
@@ -101,12 +101,16 @@ db:
   'redis' => array(
     'host' => 'redis',
     'port' => 6379,
-    'password' => '950617'
+    'password' => '******'
   ),
 ```
 
 同时我们可以为图片、视频等开启缩略图  
+
+首先记得安装ffmpeg `apt install ffmpeg -y`
+
 修改`config.php`
+
 ```
   'enable_previews' => true,
   'enabledPreviewProviders' =>
