@@ -127,3 +127,16 @@ db:
 总的体验下来，NextCloud的备份可以满足需求，上传速度最高能达到10M，基本上可以跑满3B的百兆小水管。不过看到Nextcloud的同步逻辑是以云端为主，删除云端本地会同步删除，本地删除后会自动同步到本地，这一点还未测试。等后续再体验几天，再来更新一波。
 
 <img src="https://md-images-1251991865.cos.ap-chengdu.myqcloud.com/img/image-20220609201103981.png" style="zoom: 67%;" />
+
+---
+
+## 更新
+
+今天重装了系统，但是之前上传的照片数据还在硬盘上，于是可以将原来的data目录下的上传数据进行复制，随后重建NextCloud索引即可。
+
+```
+nextcloud php occ files:scan --all # www-data 用户下执行
+docker exec -u www-data nextcloud php occ files:scan --all # 或者从外部指定docker用户操作
+
+```
+
