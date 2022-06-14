@@ -37,44 +37,41 @@ sudo docker run -d -p 9000 : 9000 --name portainer --restart always -v /var/run/
 ### 通过Docker Compose生成
 编辑 `docker-compose.yml`
 ```
-version: '2'
-
 services:
-db:
- image: ibex/debian-mysql-server-5.7  # mysql 镜像文件
- restart: always
- volumes:
-
-   - /mnt/sda1/cloud/db:/var/lib/mysql
-     vironment:
-        - MYSQL_ROOT_PASSWORD=******  # root 账号密码，根据需要更改 
-          MYSQL_PASSWORD=****** # 普通账号密码，根据需要更改 
-             - MYSQL_DATABASE=nextcloud  # 数据库名
-               MYSQL_USER=nextcloud  # 普通用户名
-                 app:
-                   image: nextcloud  # nextcloud 镜像文件
-                   privileged: true  # 拥 有root 权限
-                   ports:
-                  - 8888:80  # 端口映射，将 Docker 的80端口，映射成主机的 8888 端口，根据需要更改
-                    nks:
-                       - db  # db 是别名，使用该别名访问 前面定义的 db。nextcloud 启动时数据库的链接填 db。
-                         lumes:
-                            - /mnt/sda1/cloud/config:/var/www/html/config
-                              /mnt/sda1/cloud/data:/var/www/html/data 
-                                 - /mnt/sda1/cloud/apps:/var/www/html/apps
-                                   start: always
+  db:
+    image: ibex/debian-mysql-server-5.7  # mysql 镜像文件
+    restart: always
+    volumes:
+      - ./cloud/db:/var/lib/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=******  # root 账号密码，根据需要更改 
+      - MYSQL_PASSWORD=****** # 普通账号密码，根据需要更改 
+      - MYSQL_DATABASE=nextcloud  # 数据库名
+      - MYSQL_USER=nextcloud  # 普通用户名
+  app:
+    image: nextcloud  # nextcloud 镜像文件
+    privileged: true  # 拥 有root 权限
+    ports:
+      - 8888:80  # 端口映射，将 Docker 的80端口，映射成主机的 8888 端口，根据需要更改
+    links:
+      - db  # db 是别名，使用该别名访问 前面定义的 db。nextcloud 启动时数据库的链接填 db。
+    volumes:
+      - /mnt/sda1/cloud/config:/var/www/html/config
+      - /mnt/sda1/cloud/data:/var/www/html/data  # 因为树莓派本身存储太小，这里是映射到一个外置硬盘
+      - /mnt/sda1/cloud/apps:/var/www/html/apps
+    restart: always
 
   redis:
-    image: redis  
+    image: redis  # redis
     container_name: redis-d  # 别名
     privileged: true  # 拥有 root 权限
     restart: always
     command: --appendonly yes  --requirepass "******"  # appendonly 持久化的模式, requirepass 设置密码 password
     ports:
-
-   - 16379:6379  # redis 6379 映射到主机的 16379 端口
-     - /mnt/sda1/cloud/redis/data:/data  # 数据目录映射点
-       da1/cloud/redis/config/redis.conf:/usr/local/etc/redis/redis.conf  # 配置文件映射点
+            - 16379:6379  # redis 6379 映射到主机的 16379 端口
+    volumes:
+            - /mnt/sda1/cloud/redis/data:/data  # 数据目录映射点
+            - /mnt/sda1/cloud/redis/conf:/usr/local/etc/redis/redis.conf  # 配置文件映射点
 ```
 执行 `docker-compose up -d`
 
@@ -92,8 +89,9 @@ db:
 
 ## 额外  
 
-为了提高网页访问速度，我们配置redis对资源进行缓存  
-修改`config.php`
+- 为了提高网页访问速度，我们配置redis对资源进行缓存  
+  修改`config.php`
+
 ```
   'memcache.local' => '\OC\Memcache\Redis',
   'memcache.distributed' => '\OC\Memcache\Redis',
@@ -105,11 +103,19 @@ db:
   ),
 ```
 
-同时我们可以为图片、视频等开启缩略图  
+- 解除文件上传时 “块大小” 的限制
 
-首先记得安装ffmpeg `apt install ffmpeg -y`
+  ![image-20220614112318297](https://md-images-1251991865.cos.ap-chengdu.myqcloud.com/img/image-20220614112318297.png)
 
-修改`config.php`
+  ```
+  occ config:app:set files max_chunk_size --value 0
+  ```
+
+- 同时我们可以为图片、视频等开启缩略图  
+
+  首先记得安装ffmpeg `apt install ffmpeg -y`
+
+  修改`config.php`
 
 ```
   'enable_previews' => true,
@@ -117,7 +123,6 @@ db:
   array (
     0 => 'OC\\Preview\\Image',
     1 => 'OC\\Preview\\Movie',
-    2 => 'OC\\Preview\\TXT',
   ),
 ```
 
