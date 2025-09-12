@@ -20,17 +20,18 @@
         }
 
         .area{
-            background: #4e54c8;
-            background: -webkit-linear-gradient(to left, #8f94fb, #4e54c8);
+            background: #ffffff;
             width: 100%;
             height:100vh;
-              position: fixed; /* 让背景固定在页面后面 */
+              position: fixed; /* 让背景固定在页面后面 */        
+               backdrop-filter: blur(10px); /* 背景模糊 */
+
     top: 0;
     left: 0;
     z-index: -1; /* 放到最底层，避免挡住内容 */
         }
 
-        .circles{
+        .circles {
             position: absolute;
             top: 0;
             left: 0;
@@ -39,15 +40,18 @@
             overflow: hidden;
         }
 
-        .circles li{
+        .circles li {
             position: absolute;
             display: block;
             list-style: none;
             width: 20px;
             height: 20px;
-            background: rgba(255, 255, 255, 0.2);
+            background: rgba(0, 0, 0, 0.3); /* 使用深色的透明背景 */
+            background: linear-gradient(45deg, rgba(0, 0, 0, 0.2), rgba(255, 255, 255, 0.3)); /* 让圆点有渐变效果 */
+            border-radius: 50%;
             animation: animate 25s linear infinite;
             bottom: -150px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5), 0 0 20px rgba(255, 255, 255, 0.6); /* 更明显的阴影效果 */
         }
 
         .circles li:nth-child(1){
